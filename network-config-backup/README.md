@@ -74,7 +74,7 @@ network-config-backup/
 ## Installation
 
 ```bash
-git clone https://github.com/yourusername/network-config-backup.git
+git clone https://github.com/Sudeep-Network-Engineer/network-config-backup.git
 cd network-config-backup
 pip install -r requirements.txt
 ```

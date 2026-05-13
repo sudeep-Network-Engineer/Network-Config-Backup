@@ -3,7 +3,7 @@
 ================================================================================
 
   Project by: Sudeep Patil
-  Version:    2.0
+  Version:    2.00
   Features:   20 Features | 19 CLI Commands
   Tech Stack: Python, Netmiko, YAML, Jinja2, Click, Flask, APScheduler
 

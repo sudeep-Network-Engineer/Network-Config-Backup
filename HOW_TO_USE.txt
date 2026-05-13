@@ -2,7 +2,7 @@
   NETWORK CONFIG BACKUP & COMPLIANCE CHECKER — COMPLETE USER GUIDE
 ================================================================================
 
-  Project by: Vishnu Vardana
+  Project by: Sudeep Patil
   Version:    2.0
   Features:   20 Features | 19 CLI Commands
   Tech Stack: Python, Netmiko, YAML, Jinja2, Click, Flask, APScheduler

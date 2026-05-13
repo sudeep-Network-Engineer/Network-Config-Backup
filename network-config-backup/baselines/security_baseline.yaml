@@ -1,0 +1,134 @@
+# ============================================================
+# SECURITY COMPLIANCE BASELINE
+# ============================================================
+# This file defines the security rules that every device
+# should comply with. The compliance engine checks each
+# device's running config against these rules.
+#
+# Rule structure:
+#   - id:          Unique rule identifier
+#   - name:        Human-readable rule name
+#   - description: What this rule checks and why
+#   - severity:    critical / high / medium / low
+#   - check_type:  How to check (see below)
+#   - pattern:     What to look for in the config
+#
+# Check types:
+#   'must_contain'     → Config MUST have a line matching this pattern
+#   'must_not_contain' → Config must NOT have a line matching this pattern
+#   'regex_match'      → Config must have a line matching this regex
+#   'regex_no_match'   → Config must NOT have a line matching this regex
+# ============================================================
+
+rules:
+  # ---- SSH & Access Control ----
+  - id: "SEC-001"
+    name: "SSH Enabled"
+    description: "SSH must be enabled for secure remote access"
+    severity: "critical"
+    check_type: "must_contain"
+    pattern: "ip ssh version 2"
+
+  - id: "SEC-002"
+    name: "Telnet Disabled"
+    description: "Telnet sends passwords in plain text — must be disabled"
+    severity: "critical"
+    check_type: "must_not_contain"
+    pattern: "transport input telnet"
+
+  - id: "SEC-003"
+    name: "SSH Timeout Configured"
+    description: "SSH sessions should timeout after inactivity"
+    severity: "medium"
+    check_type: "regex_match"
+    pattern: "ip ssh time-out \\d+"
+
+  # ---- Password Security ----
+  - id: "SEC-004"
+    name: "Password Encryption"
+    description: "Service password-encryption must be enabled to protect passwords in config"
+    severity: "high"
+    check_type: "must_contain"
+    pattern: "service password-encryption"
+
+  - id: "SEC-005"
+    name: "Enable Secret Set"
+    description: "Enable secret (type 5/8/9) should be used instead of enable password"
+    severity: "high"
+    check_type: "regex_match"
+    pattern: "enable secret [589] "
+
+  - id: "SEC-006"
+    name: "No Plain Text Passwords"
+    description: "Passwords must not be stored in plain text (type 0)"
+    severity: "critical"
+    check_type: "regex_no_match"
+    pattern: "password 0 "
+
+  # ---- Logging & Monitoring ----
+  - id: "SEC-007"
+    name: "Logging Enabled"
+    description: "Syslog logging should be configured for audit trails"
+    severity: "high"
+    check_type: "regex_match"
+    pattern: "logging host \\d+\\.\\d+\\.\\d+\\.\\d+"
+
+  - id: "SEC-008"
+    name: "Logging Buffered"
+    description: "Local log buffer should be configured"
+    severity: "medium"
+    check_type: "regex_match"
+    pattern: "logging buffered \\d+"
+
+  # ---- Network Security ----
+  - id: "SEC-009"
+    name: "No IP Source Routing"
+    description: "IP source routing must be disabled to prevent spoofing attacks"
+    severity: "high"
+    check_type: "must_contain"
+    pattern: "no ip source-route"
+
+  - id: "SEC-010"
+    name: "CDP Disabled on External Interfaces"
+    description: "CDP can leak network topology info — disable on untrusted interfaces"
+    severity: "medium"
+    check_type: "must_not_contain"
+    pattern: "cdp enable"
+
+  # ---- Banner & Access ----
+  - id: "SEC-011"
+    name: "Login Banner Configured"
+    description: "A legal/warning banner must be displayed at login"
+    severity: "low"
+    check_type: "must_contain"
+    pattern: "banner login"
+
+  - id: "SEC-012"
+    name: "Console Timeout"
+    description: "Console sessions should timeout after inactivity"
+    severity: "medium"
+    check_type: "regex_match"
+    pattern: "exec-timeout \\d+ \\d+"
+
+  # ---- NTP ----
+  - id: "SEC-013"
+    name: "NTP Configured"
+    description: "Network Time Protocol should be configured for accurate logging timestamps"
+    severity: "medium"
+    check_type: "regex_match"
+    pattern: "ntp server \\d+\\.\\d+\\.\\d+\\.\\d+"
+
+  # ---- SNMP Security ----
+  - id: "SEC-014"
+    name: "No SNMP Public Community"
+    description: "Default 'public' SNMP community string must not be used"
+    severity: "critical"
+    check_type: "must_not_contain"
+    pattern: "snmp-server community public"
+
+  - id: "SEC-015"
+    name: "No SNMP Private Community"
+    description: "Default 'private' SNMP community string must not be used"
+    severity: "critical"
+    check_type: "must_not_contain"
+    pattern: "snmp-server community private"

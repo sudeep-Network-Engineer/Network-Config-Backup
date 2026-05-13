@@ -1,0 +1,87 @@
+# ============================================================
+# DEVICE INVENTORY
+# ============================================================
+# This file lists all network devices you want to manage.
+# Each device needs:
+#   - hostname:    A friendly name (used for backup folder names)
+#   - host:        IP address or DNS name of the device
+#   - device_type: Netmiko device type (e.g., cisco_ios, juniper_junos)
+#   - username:    SSH username
+#   - password:    SSH password
+#   - port:        SSH port (default: 22)
+#   - enable_secret: Enable/privileged mode password (optional)
+#
+# Supported device_type values (common ones):
+#
+#   SSH types:
+#     cisco_ios, cisco_xe, cisco_xr, cisco_nxos,
+#     juniper_junos, arista_eos, hp_procurve,
+#     dell_force10, huawei, mikrotik_routeros
+#
+#   Telnet types (for older devices without SSH):
+#     cisco_ios_telnet, cisco_xe_telnet, cisco_xr_telnet,
+#     cisco_nxos_telnet, juniper_junos_telnet, arista_eos_telnet,
+#     hp_procurve_telnet, huawei_telnet
+#
+# Note: For Telnet devices, set port to 23 (default Telnet port)
+# ============================================================
+
+devices:
+  - hostname: "core-router-1"
+    host: "192.168.1.1"
+    device_type: "cisco_ios"
+    username: "admin"
+    password: "your_password_here"
+    port: 22
+    enable_secret: "enable_password_here"
+
+  - hostname: "core-router-2"
+    host: "192.168.1.2"
+    device_type: "cisco_ios"
+    username: "admin"
+    password: "your_password_here"
+    port: 22
+    enable_secret: "enable_password_here"
+
+  - hostname: "dist-switch-1"
+    host: "192.168.2.1"
+    device_type: "cisco_ios"
+    username: "admin"
+    password: "your_password_here"
+    port: 22
+
+  - hostname: "dist-switch-2"
+    host: "192.168.2.2"
+    device_type: "cisco_ios"
+    username: "admin"
+    password: "your_password_here"
+    port: 22
+
+  - hostname: "access-switch-1"
+    host: "192.168.3.1"
+    device_type: "cisco_ios"
+    username: "admin"
+    password: "your_password_here"
+    port: 22
+
+  - hostname: "juniper-fw-1"
+    host: "192.168.4.1"
+    device_type: "juniper_junos"
+    username: "admin"
+    password: "your_password_here"
+    port: 22
+
+  # ---- Telnet Devices (older devices without SSH) ----
+  - hostname: "legacy-router-1"
+    host: "192.168.5.1"
+    device_type: "cisco_ios_telnet"
+    username: "admin"
+    password: "your_password_here"
+    port: 23
+
+  - hostname: "legacy-switch-1"
+    host: "192.168.5.2"
+    device_type: "cisco_ios_telnet"
+    username: "admin"
+    password: "your_password_here"
+    port: 23
